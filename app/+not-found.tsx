@@ -6,23 +6,25 @@ export default function NotFoundScreen() {
     <>
       <Stack.Screen options={{ title: "Oops! Not Found" }} />
       <View>
-        <Link href="/" style={styles.button}>Go back to Home Screen</Link>
-      </View >
+        <Link href="/" style={styles.button}>
+          Go back to Home Screen
+        </Link>
+      </View>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   button: {
     fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff'
-  }
-})
+    textDecorationLine: "underline",
+    color: "#fff",
+  },
+});

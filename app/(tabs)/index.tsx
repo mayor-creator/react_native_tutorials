@@ -1,3 +1,4 @@
+import domtoimage from "dom-to-image";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import { useEffect, useRef, useState } from "react";

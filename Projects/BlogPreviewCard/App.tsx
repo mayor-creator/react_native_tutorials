@@ -28,7 +28,7 @@ export default function App() {
 					<Text style={styles.dateText}>Published 21 Dec 2023</Text>
 					<Text style={styles.titleText}>HTML & CSS Foundations</Text>
 					<Text>
-						These languages are the backbone od every website, defining
+						These languages are the backbone of every website, defining
 						structure, content, and presentation.
 					</Text>
 				</View>
@@ -94,12 +94,10 @@ const styles = StyleSheet.create({
 	dateText: {
 		fontFamily: "Figtree-Medium",
 		fontSize: 12,
-		fontWeight: 500,
 	},
 	titleText: {
 		fontFamily: "Figtree-ExtraBold",
 		fontSize: 20,
-		fontWeight: "bold",
 	},
 	authorContainer: {
 		width: 129,
@@ -112,7 +110,6 @@ const styles = StyleSheet.create({
 	},
 	authorText: {
 		fontSize: 16,
-		fontWeight: "bold",
 		textAlign: "center",
 		fontFamily: "Figtree-ExtraBold",
 	},

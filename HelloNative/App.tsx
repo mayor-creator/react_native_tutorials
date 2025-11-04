@@ -6,6 +6,11 @@ export default function App() {
 		<View style={styles.container}>
 			<StatusBar style="auto" />
 			<Text>Hello World</Text>
+			<View>
+				<Text style={styles.baseText}>
+					Good morning, <Text style={styles.innerText}>how're you doing?</Text>
+				</Text>
+			</View>
 		</View>
 	);
 }
@@ -16,5 +21,11 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
+	},
+	baseText: {
+		fontWeight: "bold",
+	},
+	innerText: {
+		color: "green",
 	},
 });

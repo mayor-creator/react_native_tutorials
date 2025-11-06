@@ -1,12 +1,13 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+	const [text, setText] = useState("");
 	const [loaded, error] = useFonts({
 		"Lato-Black": require("./assets/font/Lato/Lato-Black.ttf"),
 		"Lato-Regular": require("./assets/font/Lato/Lato-Regular.ttf"),
@@ -31,6 +32,28 @@ export default function App() {
 				<View style={styles.innerChild}></View>
 				<View style={styles.innerChild}></View>
 			</View>
+			<View>
+				<Text style={styles.label}>City: </Text>
+				<TextInput
+					style={styles.textInput}
+					placeholder="San Diego"
+					value={text}
+					onChangeText={setText}
+				/>
+				<Text style={styles.label}>Email: </Text>
+				<TextInput
+					style={styles.textInput}
+					placeholder="Enter a email address"
+					keyboardType="email-address"
+				/>
+				<Text style={styles.label}>Phone: </Text>
+				<TextInput
+					style={styles.textInput}
+					placeholder="Enter a phone number"
+					keyboardType="phone-pad"
+				/>
+			</View>
+			<Text>{text}</Text>
 		</View>
 	);
 }
@@ -62,6 +85,7 @@ const styles = StyleSheet.create({
 		gap: 10,
 		justifyContent: "space-around",
 		alignItems: "center",
+		marginBottom: 10,
 	},
 	innerChild: {
 		backgroundColor: "green",
@@ -74,5 +98,18 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: "center",
 		color: "white",
+	},
+	label: {
+		fontSize: 16,
+		fontFamily: "Lato-Regular",
+	},
+	textInput: {
+		backgroundColor: "white",
+		height: 40,
+		width: "100%",
+		padding: 5,
+		borderWidth: 1,
+		borderRadius: 10,
+		fontFamily: "Lato-Regular",
 	},
 });

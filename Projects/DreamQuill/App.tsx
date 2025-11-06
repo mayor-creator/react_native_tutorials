@@ -1,24 +1,35 @@
 import { useFonts } from "expo-font";
 import { Image } from "expo-image";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import data from "./data/data.json";
 
 export default function App() {
 	const [fontLoaded] = useFonts({
 		"Mantrope-ExtraBold": require("./assets/fonts/Manrope-ExtraBold.ttf"),
 	});
 
+	const [randomItem, setRandomItem] = useState(() => {
+		const randomIndex = Math.floor(Math.random() * data.length);
+		return data[randomIndex];
+	});
+
+	const handleNewQuote = () => {
+		const randomIndex = Math.floor(Math.random() * data.length);
+		setRandomItem(data[randomIndex]);
+	};
+
 	if (!fontLoaded) {
 		return null;
 	}
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<View style={styles.cardContainer}>
-				<Text style={styles.numberText}>Advice # 1</Text>
-				<Text style={styles.quoteText}>
-					"It is easy to sit up and take notice, what's difficult is getting and
-					taking action."
-				</Text>
+				<Text style={styles.numberText}>Advice # {randomItem.id}</Text>
+				<Text style={styles.quoteText}>"{randomItem.quote}"</Text>
+				<Text style={styles.numberText}>"-{randomItem.author}"</Text>
 				<View>
 					<Image
 						source={require("./assets/images/pattern-divider-mobile.svg")}
@@ -27,7 +38,13 @@ export default function App() {
 					/>
 				</View>
 
-				<Pressable style={styles.button}>
+				<Pressable
+					style={({ pressed }) => [
+						styles.button,
+						{ transform: [{ scale: pressed ? 0.95 : 1 }] },
+					]}
+					onPress={handleNewQuote}
+				>
 					<Image
 						source={require("./assets/images/icon-dice.svg")}
 						contentFit="cover"
@@ -35,7 +52,7 @@ export default function App() {
 					></Image>
 				</Pressable>
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 }
 
@@ -45,13 +62,13 @@ const styles = StyleSheet.create({
 		backgroundColor: "#202733",
 		alignItems: "center",
 		justifyContent: "center",
-		padding: 24,
 	},
 	cardContainer: {
 		backgroundColor: "#313A48",
 		borderRadius: 10,
-		padding: 24,
+		padding: 20,
 		alignItems: "center",
+		width: "85%",
 	},
 	numberText: {
 		fontFamily: "Mantrope-ExtraBold",
@@ -59,10 +76,12 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: "#53FFAA",
 		marginBottom: 24,
+		letterSpacing: 2,
 	},
 	quoteText: {
 		fontFamily: "Mantrope-ExtraBold",
 		fontSize: 24,
+		lineHeight: 28,
 		textAlign: "center",
 		color: "#CEE3E9",
 		marginBottom: 24,
@@ -75,10 +94,9 @@ const styles = StyleSheet.create({
 	button: {
 		backgroundColor: "#53FFAA",
 		borderRadius: 50,
-		height: 64,
-		width: 64,
 		alignItems: "center",
 		justifyContent: "center",
+		padding: 20,
 	},
 	buttonImage: {
 		width: 24,

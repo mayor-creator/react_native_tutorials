@@ -1,7 +1,7 @@
 import { useFonts } from "expo-font";
 import { Image } from "expo-image";
-import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import data from "./data/data.json";
 
@@ -18,6 +18,23 @@ export default function App() {
 	const handleNewQuote = () => {
 		const randomIndex = Math.floor(Math.random() * data.length);
 		setRandomItem(data[randomIndex]);
+	};
+
+	const scaleAnim = useRef(new Animated.Value(1)).current;
+
+	const handlePressIn = () => {
+		Animated.spring(scaleAnim, {
+			toValue: 0.95,
+			useNativeDriver: true,
+		}).start();
+	};
+
+	const handlePressOut = () => {
+		Animated.spring(scaleAnim, {
+			toValue: 1,
+			friction: 3,
+			useNativeDriver: true,
+		}).start();
 	};
 
 	if (!fontLoaded) {
@@ -38,19 +55,23 @@ export default function App() {
 					/>
 				</View>
 
-				<Pressable
-					style={({ pressed }) => [
-						styles.button,
-						{ transform: [{ scale: pressed ? 0.95 : 1 }] },
-					]}
-					onPress={handleNewQuote}
-				>
-					<Image
-						source={require("./assets/images/icon-dice.svg")}
-						contentFit="cover"
-						style={styles.buttonImage}
-					></Image>
-				</Pressable>
+				<Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+					<Pressable
+						style={({ pressed }) => [
+							styles.button,
+							{ backgroundColor: pressed ? "#a5da1eff" : "#53FFAA" },
+						]}
+						onPress={handleNewQuote}
+						onPressIn={handlePressIn}
+						onPressOut={handlePressOut}
+					>
+						<Image
+							source={require("./assets/images/icon-dice.svg")}
+							contentFit="cover"
+							style={styles.buttonImage}
+						></Image>
+					</Pressable>
+				</Animated.View>
 			</View>
 		</SafeAreaView>
 	);

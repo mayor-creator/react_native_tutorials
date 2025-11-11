@@ -9,6 +9,8 @@ import {
 	View,
 } from "react-native";
 
+import { Advice } from "./components/advice";
+
 export default function App() {
 	// const [count, setCount] = useState(0);
 
@@ -18,6 +20,7 @@ export default function App() {
 				case "INCREASE":
 					return { ...state, count: state.count + 1 };
 				case "DECREASE":
+					if (state.count <= 0) return state;
 					return { ...state, count: state.count - 1 };
 				default:
 					return state;
@@ -33,7 +36,7 @@ export default function App() {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar style="auto" />
+			<StatusBar style="auto" animated />
 			<Text style={styles.header}>Simple Counter</Text>
 			<Text style={styles.counterText}>Count: {state.count}</Text>
 			<View style={styles.buttonRow}>
@@ -54,6 +57,7 @@ export default function App() {
 			<View style={styles.divider} />
 
 			<NameList></NameList>
+			<Advice></Advice>
 		</View>
 	);
 }

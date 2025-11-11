@@ -10,24 +10,44 @@ import {
 } from "react-native";
 
 export default function App() {
-	const [count, setCount] = useState(0);
+	// const [count, setCount] = useState(0);
 
-	const handleDecreaseNumber = () => {
-		if (count <= 0) return;
-		setCount(count - 1);
-	};
+	const [state, dispatch] = useReducer(
+		(state, action) => {
+			switch (action.type) {
+				case "INCREASE":
+					return { ...state, count: state.count + 1 };
+				case "DECREASE":
+					return { ...state, count: state.count - 1 };
+				default:
+					return state;
+			}
+		},
+		{ count: 0 },
+	);
+
+	// const handleDecreaseNumber = () => {
+	// 	if (count <= 0) return;
+	// 	setCount(count - 1);
+	// };
 
 	return (
 		<View style={styles.container}>
 			<StatusBar style="auto" />
 			<Text style={styles.header}>Simple Counter</Text>
-			<Text style={styles.counterText}>Count: {count}</Text>
+			<Text style={styles.counterText}>Count: {state.count}</Text>
 			<View style={styles.buttonRow}>
 				<View style={styles.buttonWrapper}>
-					<Button title="Increase" onPress={() => setCount(count + 1)} />
+					<Button
+						title="Increase"
+						onPress={() => dispatch({ type: "INCREASE" })}
+					/>
 				</View>
 				<View style={styles.buttonWrapper}>
-					<Button title="Decrease" onPress={handleDecreaseNumber} />
+					<Button
+						title="Decrease"
+						onPress={() => dispatch({ type: "DECREASE" })}
+					/>
 				</View>
 			</View>
 

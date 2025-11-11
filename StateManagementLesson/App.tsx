@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import {
 	Button,
 	FlatList,

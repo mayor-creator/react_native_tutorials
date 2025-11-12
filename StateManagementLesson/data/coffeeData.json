@@ -1,0 +1,97 @@
+[
+	{
+		"title": "Black",
+		"description": "Black coffee",
+		"ingredients": ["Coffee"],
+		"id": 1
+	},
+	{
+		"title": "Latte",
+		"description": "Espresso with steamed milk and a light layer of foam",
+		"ingredients": ["Espresso", "Steamed Milk"],
+		"id": 2
+	},
+	{
+		"title": "Cappuccino",
+		"description": "Espresso with equal parts steamed milk and milk foam",
+		"ingredients": ["Espresso", "Steamed Milk", "Foam"],
+		"id": 3
+	},
+	{
+		"title": "Americano",
+		"description": "Espresso diluted with hot water",
+		"ingredients": ["Espresso", "Hot Water"],
+		"id": 4
+	},
+	{
+		"title": "Macchiato",
+		"description": "Espresso with a small amount of foamed milk",
+		"ingredients": ["Espresso", "Foamed Milk"],
+		"id": 5
+	},
+	{
+		"title": "Mocha",
+		"description": "Espresso mixed with chocolate syrup and steamed milk, topped with whipped cream",
+		"ingredients": [
+			"Espresso",
+			"Chocolate Syrup",
+			"Steamed Milk",
+			"Whipped Cream"
+		],
+		"id": 6
+	},
+	{
+		"title": "Flat White",
+		"description": "Espresso with microfoam milk for a velvety texture",
+		"ingredients": ["Espresso", "Steamed Milk"],
+		"id": 7
+	},
+	{
+		"title": "Cortado",
+		"description": "Espresso cut with an equal amount of warm milk to reduce acidity",
+		"ingredients": ["Espresso", "Warm Milk"],
+		"id": 8
+	},
+	{
+		"title": "Irish Coffee",
+		"description": "Hot coffee with Irish whiskey, sugar, and a layer of cream",
+		"ingredients": ["Coffee", "Irish Whiskey", "Sugar", "Cream"],
+		"id": 9
+	},
+	{
+		"title": "Affogato",
+		"description": "A scoop of vanilla ice cream topped with a shot of hot espresso",
+		"ingredients": ["Espresso", "Vanilla Ice Cream"],
+		"id": 10
+	},
+	{
+		"title": "Cold Brew",
+		"description": "Coffee brewed slowly with cold water over several hours",
+		"ingredients": ["Coffee", "Cold Water"],
+		"id": 11
+	},
+	{
+		"title": "Espresso",
+		"description": "Strong and concentrated coffee brewed under pressure",
+		"ingredients": ["Espresso"],
+		"id": 12
+	},
+	{
+		"title": "Iced Latte",
+		"description": "Chilled espresso mixed with cold milk and ice",
+		"ingredients": ["Espresso", "Cold Milk", "Ice"],
+		"id": 13
+	},
+	{
+		"title": "Turkish Coffee",
+		"description": "Finely ground coffee simmered with water and sugar in a cezve",
+		"ingredients": ["Finely Ground Coffee", "Water", "Sugar"],
+		"id": 14
+	},
+	{
+		"title": "Vienna Coffee",
+		"description": "Two shots of espresso topped with whipped cream instead of milk",
+		"ingredients": ["Espresso", "Whipped Cream"],
+		"id": 15
+	}
+]

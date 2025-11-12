@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { Advice } from "./components/advice";
+import { CoffeeShop } from "./components/coffeeShop";
 
 export default function App() {
 	// const [count, setCount] = useState(0);
@@ -56,8 +57,9 @@ export default function App() {
 
 			<View style={styles.divider} />
 
-			<NameList></NameList>
-			<Advice></Advice>
+			<NameList />
+			<Advice />
+			<CoffeeShop />
 		</View>
 	);
 }
@@ -97,7 +99,7 @@ export const NameList = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#f5f5f5",
+		backgroundColor: "#f5f5f5ff",
 		alignItems: "center",
 		justifyContent: "center",
 		padding: 20,

@@ -1,5 +1,11 @@
 import { Divider } from "@rneui/themed";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+	FlatList,
+	type ListRenderItem,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
 import coffeeData from "../data/coffeeData.json";
 
 type Coffee = {
@@ -11,7 +17,14 @@ type Coffee = {
 
 const typedCoffeeData = coffeeData as Coffee[];
 
-const separator = () => {
+const renderCoffeeItem: ListRenderItem<Coffee> = ({ item }) => (
+	<View style={styles.card}>
+		<Text style={styles.title}>{item.title}</Text>
+		<Text style={styles.description}>{item.description}</Text>
+	</View>
+);
+
+const Separator = () => {
 	return <Divider width={2} color="green" />;
 };
 
@@ -20,20 +33,17 @@ export const CoffeeShop = () => {
 		<View style={styles.container}>
 			<Text style={styles.header}>Coffee Menu</Text>
 			<Divider orientation="vertical" width={6} />
-			{typedCoffeeData && (
+			{typedCoffeeData.length > 0 ? (
 				<FlatList
-					ItemSeparatorComponent={separator}
 					data={typedCoffeeData}
 					keyExtractor={(item) => item.id.toString()}
-					renderItem={({ item }) => (
-						<View style={styles.card}>
-							<Text style={styles.title}>{item.title}</Text>
-							<Text style={styles.description}>{item.description}</Text>
-						</View>
-					)}
+					renderItem={renderCoffeeItem}
+					ItemSeparatorComponent={Separator}
 					style={styles.list}
 					contentContainerStyle={styles.listContent}
 				/>
+			) : (
+				<Text>No coffee items found</Text>
 			)}
 		</View>
 	);
@@ -77,7 +87,7 @@ const styles = StyleSheet.create({
 	},
 
 	title: {
-		color: "#3bf2f",
+		color: "#3b2f2f",
 		fontSize: 18,
 		fontWeight: "600",
 		marginBottom: 4,

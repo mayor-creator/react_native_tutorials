@@ -1,4 +1,3 @@
-import { Divider } from "@rneui/themed";
 import {
 	FlatList,
 	type ListRenderItem,
@@ -24,21 +23,16 @@ const renderCoffeeItem: ListRenderItem<Coffee> = ({ item }) => (
 	</View>
 );
 
-const Separator = () => {
-	return <Divider width={2} color="green" />;
-};
-
 export const CoffeeShop = () => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.header}>Coffee Menu</Text>
-			<Divider orientation="vertical" width={6} />
+
 			{typedCoffeeData.length > 0 ? (
 				<FlatList
 					data={typedCoffeeData}
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={renderCoffeeItem}
-					ItemSeparatorComponent={Separator}
 					style={styles.list}
 					contentContainerStyle={styles.listContent}
 				/>
@@ -53,7 +47,6 @@ const styles = StyleSheet.create({
 	container: {
 		width: "100%",
 		alignItems: "center",
-		marginTop: 20,
 	},
 
 	header: {
@@ -65,7 +58,6 @@ const styles = StyleSheet.create({
 
 	list: {
 		width: "90%",
-		maxHeight: 300,
 		backgroundColor: "#fff",
 		borderRadius: 12,
 		elevation: 3,

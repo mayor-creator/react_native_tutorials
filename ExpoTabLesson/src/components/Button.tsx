@@ -1,5 +1,4 @@
 import {
-	ActivityIndicator,
 	Platform,
 	Pressable,
 	StyleSheet,
@@ -11,7 +10,6 @@ import {
 interface ButtonProps {
 	title: string;
 	onPress: () => void;
-	loading?: boolean;
 	disable?: boolean;
 	style?: ViewStyle;
 	textStyle?: TextStyle;
@@ -21,13 +19,12 @@ interface ButtonProps {
 export const Button = ({
 	title,
 	onPress,
-	loading = false,
 	disable = false,
 	style,
 	textStyle,
 	bgColor,
 }: ButtonProps) => {
-	const isDisabled = loading || disable;
+	const isDisabled = disable;
 
 	return (
 		<Pressable
@@ -47,11 +44,7 @@ export const Button = ({
 				style,
 			]}
 		>
-			{loading ? (
-				<ActivityIndicator color="#fff" />
-			) : (
-				<Text style={[styles.text, textStyle]}>{title}</Text>
-			)}
+			<Text style={textStyle}>{title}</Text>
 		</Pressable>
 	);
 };
@@ -64,10 +57,5 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		overflow: "hidden",
-	},
-	text: {
-		color: "#fff",
-		fontSize: 16,
-		fontWeight: "600",
 	},
 });

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 interface BillInputProps {
@@ -8,8 +8,25 @@ interface BillInputProps {
 
 export default function BillInput({ bill, setBill }: BillInputProps) {
 	const [error, setError] = useState(false);
+	const [localValue, setLocalValue] = useState(
+		bill !== null ? String(bill) : "",
+	);
+
+	useEffect(() => {
+		if (bill === null) {
+			setLocalValue("");
+		} else {
+			const parsedLocal = parseFloat(localValue);
+			// Only update local value if it doesn't match the prop (to avoid cursor jumps/formatting loss)
+			if (Number.isNaN(parsedLocal) || parsedLocal !== bill) {
+				setLocalValue(String(bill));
+			}
+		}
+	}, [bill, localValue]);
 
 	const handleChange = (value: string) => {
+		setLocalValue(value);
+
 		// Allow empty input
 		if (value === "") {
 			setBill(null);
@@ -41,13 +58,16 @@ export default function BillInput({ bill, setBill }: BillInputProps) {
 
 			{error && <Text style={styles.errorMessage}>Can't be zero</Text>}
 
-			<TextInput
-				style={[styles.input, error && styles.inputError]}
-				placeholder="0.00"
-				keyboardType="decimal-pad"
-				value={bill !== null ? String(bill) : ""}
-				onChangeText={handleChange}
-			/>
+			<View style={[styles.inputContainer, error && styles.inputError]}>
+				<Text style={styles.currency}>$</Text>
+				<TextInput
+					style={styles.input}
+					placeholder="0.00"
+					keyboardType="decimal-pad"
+					value={localValue}
+					onChangeText={handleChange}
+				/>
+			</View>
 		</View>
 	);
 }
@@ -71,20 +91,32 @@ const styles = StyleSheet.create({
 		color: "#e17055",
 		fontSize: 12,
 		marginBottom: 5,
-	},
-	input: {
-		width: "100%",
 		textAlign: "right",
-		borderRadius: 8,
+	},
+	inputContainer: {
+		flexDirection: "row",
+		alignItems: "center",
 		backgroundColor: "hsl(189, 41%, 97%)",
-		padding: 10,
-		fontSize: 18,
-		fontWeight: "700",
-		color: "#00494d",
-		borderWidth: 0,
+		borderRadius: 8,
+		paddingHorizontal: 15,
+		borderWidth: 2,
+		borderColor: "transparent",
 	},
 	inputError: {
-		borderWidth: 1,
 		borderColor: "#e17055",
+	},
+	currency: {
+		fontSize: 18,
+		fontWeight: "700",
+		color: "#9EBBBD",
+	},
+	input: {
+		flex: 1,
+		textAlign: "right",
+		fontSize: 24,
+		fontWeight: "700",
+		color: "#00494d",
+		paddingVertical: 10,
+		borderWidth: 0,
 	},
 });

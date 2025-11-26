@@ -1,11 +1,36 @@
 import { StatusBar } from "expo-status-bar";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import BillInput from "./src/component/BillInput";
 import NumberOfPeopleInput from "./src/component/NumberOfPeopleInput";
 import PriceSection from "./src/component/PriceSelection";
 import RadioButton from "./src/component/RadioButton";
 
 export default function App() {
+	const [bill, setBill] = useState<number | null>(null);
+	const [tip, setTip] = useState<number | null>(null);
+	const [people, setPeople] = useState<number | null>(null);
+
+	// Calculate whenever dependencies change
+	// Or we can calculate on render if it's fast enough (it is)
+	// Let's use derived state for simplicity
+	let calculatedTipAmount = 0;
+	let calculatedTotalAmount = 0;
+
+	if (bill && tip !== null && people && people > 0) {
+		const tipValue = bill * (tip / 100);
+		const totalValue = bill + tipValue;
+
+		calculatedTipAmount = tipValue / people;
+		calculatedTotalAmount = totalValue / people;
+	}
+
+	const handleReset = () => {
+		setBill(null);
+		setTip(null);
+		setPeople(null);
+	};
+
 	return (
 		<View style={styles.container}>
 			<StatusBar style="auto" />
@@ -15,19 +40,19 @@ export default function App() {
 
 			<View style={styles.innerContainer}>
 				<View>
-					<BillInput />
+					<BillInput bill={bill} setBill={setBill} />
 				</View>
 				<View>
-					<RadioButton />
+					<RadioButton tip={tip} setTip={setTip} />
 				</View>
 				<View>
-					<NumberOfPeopleInput />
+					<NumberOfPeopleInput people={people} setPeople={setPeople} />
 				</View>
 				<View style={styles.totalContainer}>
 					<PriceSection
-						tipAmount={0}
-						totalAmount={0}
-						onReset={() => Alert.alert("I'm reset button")}
+						tipAmount={calculatedTipAmount}
+						totalAmount={calculatedTotalAmount}
+						onReset={handleReset}
 					/>
 				</View>
 			</View>

@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function NumberOfPeopleInput() {
-	const [people, setPeople] = useState<number | null>(null);
+interface NumberOfPeopleInputProps {
+	people: number | null;
+	setPeople: (people: number | null) => void;
+}
+
+export default function NumberOfPeopleInput({
+	people,
+	setPeople,
+}: NumberOfPeopleInputProps) {
 	const [error, setError] = useState(false);
 
 	const handleChange = (value: string) => {

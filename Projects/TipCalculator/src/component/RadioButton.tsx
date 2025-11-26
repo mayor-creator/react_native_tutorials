@@ -1,14 +1,16 @@
-import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function RadioButton() {
-	const [selectedTip, setSelectedTip] = useState<number | null>(null);
-	const [customTip, setCustomTip] = useState<number | null>(null);
+interface RadioButtonProps {
+	tip: number | null;
+	setTip: (tip: number | null) => void;
+}
 
+export default function RadioButton({ tip, setTip }: RadioButtonProps) {
 	const tips = [5, 10, 15, 25, 50];
 
-	const isCustomActive = customTip !== null;
-	const isRadioActive = selectedTip !== null;
+	// Check if the current tip is one of the presets
+	const isCustomActive = tip !== null && !tips.includes(tip);
+	const isRadioActive = tip !== null && tips.includes(tip);
 
 	return (
 		<>
@@ -16,28 +18,27 @@ export default function RadioButton() {
 				<Text style={styles.heading}>Select Tip %</Text>
 			</View>
 			<View style={styles.radio}>
-				{tips.map((tip) => (
+				{tips.map((presetTip) => (
 					<Pressable
-						key={tip}
+						key={presetTip}
 						disabled={isCustomActive}
 						style={[
 							styles.radioLabel,
-							selectedTip === tip && styles.selectedRadioLabel,
+							tip === presetTip && styles.selectedRadioLabel,
 							isCustomActive && styles.disabledInput,
 						]}
 						onPress={() => {
-							setSelectedTip(tip);
-							setCustomTip(null);
+							setTip(presetTip);
 						}}
 					>
 						<Text
 							style={[
 								styles.radioLabelText,
-								selectedTip === tip && styles.selectedRadioLabelText,
+								tip === presetTip && styles.selectedRadioLabelText,
 								isCustomActive && styles.disabledText,
 							]}
 						>
-							{tip}%
+							{presetTip}%
 						</Text>
 					</Pressable>
 				))}
@@ -49,13 +50,16 @@ export default function RadioButton() {
 					placeholderTextColor="#7f9c9f"
 					keyboardType="numeric"
 					// convert number to string
-					value={customTip !== null ? String(customTip) : ""}
+					// If it's a preset, don't show it in custom input, or maybe show it?
+					// The original logic cleared custom when preset was selected.
+					// Here, if it's a preset, we can show empty or the value.
+					// Let's show empty if it's a preset to avoid confusion, or only show if it's NOT a preset.
+					value={isCustomActive && tip !== null ? String(tip) : ""}
 					editable={!isRadioActive}
 					onChangeText={(value) => {
 						// convert string to number
 						const num = value === "" ? null : Number(value);
-						setCustomTip(num);
-						if (num !== null) setSelectedTip(null);
+						setTip(num);
 					}}
 				/>
 			</View>

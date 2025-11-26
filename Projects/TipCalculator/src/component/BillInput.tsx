@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function BillInput() {
-	const [bill, setBill] = useState<number | null>(null);
+interface BillInputProps {
+	bill: number | null;
+	setBill: (bill: number | null) => void;
+}
+
+export default function BillInput({ bill, setBill }: BillInputProps) {
 	const [error, setError] = useState(false);
 
 	const handleChange = (value: string) => {

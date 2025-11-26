@@ -1,5 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import BillInput from "./src/component/BillInput";
+import NumberOfPeopleInput from "./src/component/NumberOfPeopleInput";
+import PriceSection from "./src/component/PriceSelection";
+import RadioButton from "./src/component/RadioButton";
 
 export default function App() {
 	return (
@@ -11,16 +15,21 @@ export default function App() {
 
 			<View style={styles.innerContainer}>
 				<View>
-					<Text>Bill</Text>
-					<TextInput></TextInput>
+					<BillInput />
 				</View>
 				<View>
-					<Text>Select Tip %</Text>
+					<RadioButton />
 				</View>
 				<View>
-					<Text>Number of People</Text>
+					<NumberOfPeopleInput />
 				</View>
-				<View style={styles.totalContainer}></View>
+				<View style={styles.totalContainer}>
+					<PriceSection
+						tipAmount={0}
+						totalAmount={0}
+						onReset={() => Alert.alert("I'm reset button")}
+					/>
+				</View>
 			</View>
 		</View>
 	);
@@ -51,5 +60,14 @@ const styles = StyleSheet.create({
 		backgroundColor: "#00474B",
 		height: 257,
 		borderRadius: 15,
+		padding: 20,
+	},
+	button: {
+		height: 48,
+		width: 281,
+		color: "#00474B",
+	},
+	buttonText: {
+		color: "white",
 	},
 });

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-evenly",
 		alignItems: "center",
-		gap: 1, // 0.0625rem ~ 1px
+		gap: 1,
 		paddingBottom: 20,
 	},
 	labelGroup: {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		color: "#7f9c9f",
 	},
 	amountText: {
-		color: "#26c0ab", // example color for tip/total
+		color: "#26c0ab",
 		fontSize: 28,
 		fontWeight: "700",
 		marginTop: 5,
@@ -79,19 +79,19 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		paddingTop: 40,
-		gap: 24, // 1.5rem
+		gap: 24,
 	},
 	resetButton: {
 		width: "100%",
-		height: 38, // 2.375rem
-		borderRadius: 8, // 0.5rem
-		backgroundColor: "#26c0ab", // strong cyan
+		height: 38,
+		borderRadius: 8,
+		backgroundColor: "#26c0ab",
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	resetButtonText: {
-		color: "#00494d", // very dark cyan
-		fontSize: 20, // 1.25rem
+		color: "#00494d",
+		fontSize: 20,
 		fontWeight: "700",
 		textTransform: "uppercase",
 	},

@@ -1,6 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+	Keyboard,
+	StyleSheet,
+	Text,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native";
 import BillInput from "./src/component/BillInput";
 import NumberOfPeopleInput from "./src/component/NumberOfPeopleInput";
 import PriceSection from "./src/component/PriceSelection";
@@ -32,31 +38,33 @@ export default function App() {
 	};
 
 	return (
-		<View style={styles.container}>
-			<StatusBar style="auto" />
-			<View>
-				<Text style={styles.heading}>SPLI TTER</Text>
-			</View>
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+			<View style={styles.container}>
+				<StatusBar style="auto" />
+				<View>
+					<Text style={styles.heading}>SPLI TTER</Text>
+				</View>
 
-			<View style={styles.innerContainer}>
-				<View>
-					<BillInput bill={bill} setBill={setBill} />
-				</View>
-				<View>
-					<RadioButton tip={tip} setTip={setTip} />
-				</View>
-				<View>
-					<NumberOfPeopleInput people={people} setPeople={setPeople} />
-				</View>
-				<View style={styles.totalContainer}>
-					<PriceSection
-						tipAmount={calculatedTipAmount}
-						totalAmount={calculatedTotalAmount}
-						onReset={handleReset}
-					/>
+				<View style={styles.innerContainer}>
+					<View>
+						<BillInput bill={bill} setBill={setBill} />
+					</View>
+					<View>
+						<RadioButton tip={tip} setTip={setTip} />
+					</View>
+					<View>
+						<NumberOfPeopleInput people={people} setPeople={setPeople} />
+					</View>
+					<View style={styles.totalContainer}>
+						<PriceSection
+							tipAmount={calculatedTipAmount}
+							totalAmount={calculatedTotalAmount}
+							onReset={handleReset}
+						/>
+					</View>
 				</View>
 			</View>
-		</View>
+		</TouchableWithoutFeedback>
 	);
 }
 

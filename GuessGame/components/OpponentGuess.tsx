@@ -149,6 +149,8 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   countText: {
+    fontFamily: "Outfit_500Medium",
     color: Colors.white,
+    fontSize: 14,
   },
 });

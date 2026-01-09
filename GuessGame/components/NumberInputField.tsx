@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Modal, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Modal, StyleSheet, Text, TextInput, View } from "react-native";
+import { Colors } from "../theme/colors";
 import { Button } from "./Button";
 import { OpponentGuessNumber } from "./OpponentGuess";
 
@@ -10,7 +11,9 @@ export const NumberInputField = () => {
   const handleConfirmNumber = () => {
     const number = Number(enteredNumber);
     if (number <= 0 || number > 99) {
-      alert("Enter a number between 1 and 99");
+      Alert.alert("Invalid Number!", "Enter a number between 1 and 99", [
+        { text: "Okay", onPress: () => setEnteredNumber("") },
+      ]);
     } else {
       setModalVisible(true);
     }
@@ -22,15 +25,16 @@ export const NumberInputField = () => {
       <TextInput
         keyboardType="numeric"
         textAlign="center"
+        maxLength={2}
         style={styles.numberTextInput}
         value={enteredNumber}
         onChangeText={setEnteredNumber}
       />
-      <View style={styles.mainButtonContainer}>
+      <View style={styles.buttonContainer}>
         <Button label="Reset" onPress={() => setEnteredNumber("")} />
         <Button label="Confirm" onPress={handleConfirmNumber} />
       </View>
-      <Modal visible={modalVisible}>
+      <Modal visible={modalVisible} animationType="slide">
         <OpponentGuessNumber humanPlayerNumber={Number(enteredNumber)} />
       </Modal>
     </View>
@@ -41,26 +45,26 @@ const styles = StyleSheet.create({
   gameInputContainer: {
     alignItems: "center",
     justifyContent: "space-evenly",
-    backgroundColor: "#94A378",
+    backgroundColor: Colors.sageGreen,
     borderRadius: 10,
     padding: 20,
     marginTop: 50,
     gap: 10,
   },
   gameText: {
-    color: "#FFFFFF",
+    color: Colors.white,
     fontFamily: "Outfit_400Regular",
     fontSize: 20,
   },
   numberTextInput: {
     borderBottomWidth: 3,
-    borderColor: "#FFFFFF",
-    color: "#FFFFFF",
+    borderColor: Colors.white,
+    color: Colors.white,
     width: 50,
-    fontSize: 18,
+    fontSize: 32,
     fontFamily: "Outfit_400Regular",
   },
-  mainButtonContainer: {
+  buttonContainer: {
     flexDirection: "row",
   },
 });

@@ -1,5 +1,7 @@
+import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Colors } from "../theme/colors";
 import { Button } from "./Button";
 
 type humanPlayerGuess = {
@@ -36,7 +38,16 @@ export const OpponentGuessNumber = ({
   };
 
   const handleHigher = () => {
-    setOpponentsGuess(() => Math.floor(Math.random() * 99 + 1));
+    const nextCount = count + 1;
+    const nextGuess = Math.floor(Math.random() * 99 + 1);
+
+    setCount(nextCount);
+    setOpponentsGuess(nextGuess);
+
+    setMatch((previousMatch) => [
+      ...previousMatch,
+      { id: Math.random().toString(), count: nextCount, guess: nextGuess },
+    ]);
   };
 
   const renderGuessGameItem = ({ item }: { item: MatchGuess }) => {
@@ -49,36 +60,42 @@ export const OpponentGuessNumber = ({
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.opponentContainer}>
-        <Text style={styles.title}>Opponent's Guess</Text>
-      </View>
-
-      <View style={[styles.opponentContainer, styles.guessNumberContainer]}>
-        <Text style={styles.opponentText}>{opponentGuess}</Text>
-      </View>
-
-      <View style={styles.pickContainer}>
-        <Text style={styles.title}>Higher or Lower?</Text>
-        <View style={styles.opponentButtonContainer}>
-          <Button label="-" onPress={handleLower} />
-          <Button label="+" onPress={handleHigher}></Button>
+    <LinearGradient
+      colors={[Colors.midnightNavy, Colors.sageGreen]}
+      style={styles.container}
+      start={{ x: 0, y: 1 }}
+      end={{ x: 1, y: 0 }}
+    >
+      <View style={styles.container}>
+        <View style={styles.opponentContainer}>
+          <Text style={styles.title}>Opponent's Guess</Text>
         </View>
-      </View>
 
-      <FlatList
-        data={match}
-        keyExtractor={(item) => item.id}
-        renderItem={renderGuessGameItem}
-      ></FlatList>
-    </View>
+        <View style={styles.guessNumberContainer}>
+          <Text style={styles.opponentText}>{opponentGuess}</Text>
+        </View>
+
+        <View style={styles.pickContainer}>
+          <Text style={styles.title}>Higher or Lower?</Text>
+          <View style={styles.opponentButtonContainer}>
+            <Button label="-" onPress={handleLower} />
+            <Button label="+" onPress={handleHigher}></Button>
+          </View>
+        </View>
+
+        <FlatList
+          data={match}
+          keyExtractor={(item) => item.id}
+          renderItem={renderGuessGameItem}
+        ></FlatList>
+      </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#2D3C59",
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
@@ -86,22 +103,22 @@ const styles = StyleSheet.create({
   opponentContainer: {
     marginTop: 50,
     borderWidth: 2,
-    borderColor: "#FFFFFF",
+    borderColor: Colors.white,
     padding: 20,
   },
   guessNumberContainer: {
     marginTop: 30,
-    width: "80%",
     alignItems: "center",
     borderWidth: 4,
-    borderColor: "#94A378",
+    borderColor: Colors.darkerSageGreen,
+    padding: 20,
   },
   pickContainer: {
     marginTop: 30,
     marginBottom: 10,
     width: "80%",
     alignItems: "center",
-    backgroundColor: "#94A378",
+    backgroundColor: Colors.darkerSageGreen,
     borderRadius: 10,
     padding: 20,
   },
@@ -112,9 +129,9 @@ const styles = StyleSheet.create({
   opponentScoreContainer: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#2D3C59",
+    borderColor: Colors.midnightNavy,
     borderRadius: 20,
-    backgroundColor: "#D1855C",
+    backgroundColor: Colors.mutedClay,
     gap: 20,
     justifyContent: "space-between",
     flexDirection: "row",
@@ -122,16 +139,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    color: "#FFFFFF",
+    color: Colors.white,
     fontFamily: "Outfit_600SemiBold",
     fontSize: 18,
   },
   opponentText: {
-    color: "#FFFFFF",
+    color: Colors.white,
     fontFamily: "Outfit_500Medium",
     fontSize: 28,
   },
   countText: {
-    color: "#FFFFFF",
+    color: Colors.white,
   },
 });

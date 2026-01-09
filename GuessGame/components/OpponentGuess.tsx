@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../theme/colors";
 import { Button } from "./Button";
 
@@ -25,8 +25,12 @@ export const OpponentGuessNumber = ({
   ]);
 
   const handleLower = () => {
+    if (opponentGuess < humanPlayerNumber) {
+      Alert.alert("Don't lie", "The number is higher");
+    }
+
     const nextCount = count + 1;
-    const nextGuess = Math.floor(Math.random() * 99 + 1);
+    const nextGuess = Math.floor(Math.random() * (opponentGuess - 1) + 1);
 
     setCount(nextCount);
     setOpponentsGuess(nextGuess);
@@ -38,8 +42,13 @@ export const OpponentGuessNumber = ({
   };
 
   const handleHigher = () => {
+    if (opponentGuess > humanPlayerNumber) {
+      Alert.alert("Don't lie", "The number is lower");
+    }
+
     const nextCount = count + 1;
-    const nextGuess = Math.floor(Math.random() * 99 + 1);
+    const nextGuess =
+      Math.floor(Math.random() * (99 - opponentGuess)) + opponentGuess + 1;
 
     setCount(nextCount);
     setOpponentsGuess(nextGuess);
@@ -49,6 +58,12 @@ export const OpponentGuessNumber = ({
       { id: Math.random().toString(), count: nextCount, guess: nextGuess },
     ]);
   };
+
+  useEffect(() => {
+    if (opponentGuess === humanPlayerNumber) {
+      Alert.alert("Opponent guess correctly");
+    }
+  }, [opponentGuess, humanPlayerNumber]);
 
   const renderGuessGameItem = ({ item }: { item: MatchGuess }) => {
     return (
